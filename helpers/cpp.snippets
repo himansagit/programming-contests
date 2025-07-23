@@ -1,1 +1,266 @@
-/Users/himanshu/.vim/UltiSnips/cpp.snippets
+
+extends c
+
+# We want to overwrite everything in parent ft.
+priority 0
+###########################################################################
+#			    Global functions 						  #
+###########################################################################
+
+global !p
+
+def write_docstring_args(arglist, snip):
+	args = str(arglist).split(',')
+
+	if len(args) > 1:
+		c = 0
+		for arg in args:
+			if c == 0:
+				snip.rv += arg
+				c = 1
+			else:
+				snip += '*       : %s' % arg.strip()
+	else:
+		snip.rv = args[0]
+
+
+endglobal
+#<------------^^^^^^^^^^^^^^^^^-_____________________>
+#<----------NO idead what is this--------------------->
+
+#for loop
+snippet FOR
+for( int ${1:i} = 0; $1 < ${2:n}; $1++)
+{
+	${0}
+}
+endsnippet
+
+#quick loop
+snippet REP
+for( int _i = 0; _i < ${1:n}; _i++)
+{
+	${0}
+}
+endsnippet
+
+#debug header
+snippet DEBUG
+
+#ifdef LOCAL
+#include "debug.cpp"
+#else
+#define debug(...) 42
+#endif
+
+endsnippet
+
+
+#data types start ------------------------>
+snippet VB
+vector<bool> $0
+endsnippet
+
+snippet VI
+vector<int> $0
+endsnippet
+
+snippet PI
+pair<int,int> $0
+endsnippet
+
+snippet VL
+vector<i64> $0
+endsnippet
+
+snippet VVI
+vector<vector<int>> $0
+endsnippet
+
+snippet VVL
+vector<vector<i64>> $0
+endsnippet
+
+snippet VVB
+vector<vector<bool>> $0
+endsnippet
+
+#data types end ------------------------>
+
+#print run time
+snippet TIME
+cerr << "Time : " << 1000 * ((double)clock()) / (double)CLOCKS_PER_SEC << "ms ";
+endsnippet
+
+#random number generator
+snippet RNG
+mt19937_64 RNG(chrono::steady_clock::now().time_since_epoch().count());
+endsnippet
+#template with test cases
+snippet MAINT
+#include<bits/stdc++.h>
+
+using namespace std;
+//DEBUG
+using i64 = long long;
+#define all(x) (x).begin(),(x).end()
+#define sz(x)	(int)(x).size() 
+#define pb push_back
+#define rep(i, a, b) for( int i = a; i < (b); ++i)
+
+//RNG
+
+void solve(int){
+	$0
+}
+
+int32_t main()
+{ 
+	ios_base::sync_with_stdio(false);
+	cin.tie(0);
+	int tc = 1;
+	cin>>tc;
+	for(int i = 1; i <= tc; i++){
+		solve(i);
+	}
+	//TIME
+}
+
+endsnippet
+
+#template without test cases
+snippet MAIN
+#include<bits/stdc++.h>
+
+using namespace std;
+//DEBUG
+using i64 = long long;
+#define all(x) (x).begin(),(x).end()
+#define sz(x)	(int)(x).size() 
+#define pb push_back
+#define rep(i, a, b) for( int i = a; i < (b); ++i)
+
+//RNG
+
+void solve(){
+	$0
+}
+
+int32_t main()
+{ 
+	ios_base::sync_with_stdio(false);
+	cin.tie(0);
+	solve();
+	//TIME
+}
+
+endsnippet
+#MOD INT
+snippet MINT
+const int mod = 998244353;
+typedef struct mint{
+      int x;
+      mint(){
+            x = 0;
+      }
+      mint(int b){
+            x = b;
+            if( x < 0) x += mod;
+      }
+      mint(long long b){
+            x = b;
+            if( x < 0) x += mod;
+      }
+      mint(const mint& b){
+            x = b.x;
+      }
+      mint& operator=(const int& b){
+            x = b;
+            x = x%mod;
+            return *this;
+      }
+      mint& operator=(const mint& b){
+            if(this == &b)
+                  return *this;
+            x = b.x;
+            return *this;
+      }
+      mint& operator++(){
+            x++;
+            if( x == mod) x = 0;
+            return *this;
+      }
+      mint operator++(int){
+            mint old = *this;
+            x++;
+            if( x == mod) x = 0;
+            return old;
+      }
+      mint& operator--(){
+            if( x == 0) x = mod;
+            x--;
+            return *this;
+      }
+      mint operator--(int){
+            mint old = *this;
+            if( x == 0) x = mod;
+            x--;
+            return old;
+      }
+      mint& operator+=(const mint& b){
+           x += b.x;
+           if( x >= mod) x -= mod;
+           return *this;
+      }
+      mint& operator-=(const mint& b){
+            x -= b.x;
+            if( x < 0) x += mod;
+            return *this;
+      }
+      mint& operator*=(const mint& b){
+            long long z = (long long)x*b.x;
+            x = z%mod;
+            return *this;
+      } 
+       mint pow(int p)const{
+             mint t = *this, r = 1;
+             while(p){
+                   if(p &1){
+                         r *= t;
+                   }
+                   t *= t;
+                   p >>= 1;
+             }
+             return r;
+      }
+
+      mint inverse()const{
+            return pow(mod-2);
+      }
+      mint& operator/=(const mint& b){
+            return *this = *this * b.inverse();
+      }
+      mint operator+()const{
+            return *this;
+      }
+      mint operator-()const{
+            return mint() - *this;
+      }
+      friend mint operator+(const mint& a, const mint& b) { return mint(a) += b; }
+      friend mint operator-(const mint& a, const mint& b) { return mint(a) -= b; }
+      friend mint operator*(const mint& a, const mint& b) { return mint(a) *= b; }
+      friend mint operator/(const mint& a, const mint& b) { return mint(a) /= b; }
+      friend bool operator==(const mint& a, const mint& b){ return a.x == b.x; };
+      friend bool operator!=(const mint& a, const mint& b){ return a.x != b.x; };
+
+     friend std::ostream& operator<<(std::ostream& os,const mint& a){
+            return os << a.x;
+      }
+     explicit operator bool() const {
+        return x != 0;
+     }
+} Z;
+
+endsnippet
+
+# vim:ft=snippets:
