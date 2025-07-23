@@ -1,3 +1,4 @@
+// sort by using comparitor on buil-in datatype
 #include<bits/stdc++.h>
 
 using namespace std;
@@ -121,42 +122,52 @@ typedef struct mint{
 } Z;
 
 using P = array<Z,3>;
+bool comp(P a, P b){
+      if( a[0].x == b[0].x)
+            return a[1].x < b[1].x;
+      else
+            return a[0].x < b[0].x;
+}
+typedef struct segment {
+      int l,r,p,q;
+      Z t;
+      segment(){
+            l =0, r = 0, p = 0, q  =0;
+            t = 0;
+      }
+}seg;
+bool compseg(seg a, seg b){
+      if( a.l == b.l)
+            return a.r < b.r;
+      else
+            return a.l < b.l;
+}
 void solve(){
      int n, m;
      cin >> n >> m;
-     vector<P> a(n);
-     vector<vector<pair<int,Z>>> G(m+1);
-
+     vector<seg> a(n);
      Z neg = 1;
      rep(i,0,n){
-           int l, r, p , q;
+           int l,r,p,q;
            cin >> l >> r >> p >> q;
            Z t = Z(p)/Z(q);
            neg *=  1  - t;
            t = t/(1-t);
-           G[l].push_back({r,t});
+           a[i].l = l;
+           a[i].r = r;
+           a[i].p = p;
+           a[i].q = q;
+           a[i].t = t;
      }
+     sort( a.begin(), a.end(), compseg);
       vector<Z> dp(m+1);
       dp[0] = neg;
-      for( int i = 1; i < m+1; i++){
-           for(auto p:G[i]){
-                 dp[p.first] += dp[i-1]*p.second;
-           }
+      rep(i,0,n){
+            int l = a[i].l;
+            int r = a[i].r;
+            dp[r] += dp[l-1]*a[i].t;
       }
       cout << dp[m];
-     //sort( a.begin(), a.end(), comp); // not good to compare Z, should be 
-     //                                 // avoided but works here because 
-     //                                 // a[i][0] and a[i][1] are just 
-     //                                 // int <= 2e5;
-     //rep(i,0,n) cerr << a[i][0] <<" "<< a[i][1]<<" " << a[i][2] << endl;
-     // vector<Z> dp(m+1);
-     // dp[0] = neg;
-     // rep(i,0,n){
-     //       int l = a[i][0].x;
-     //       int r = a[i][1].x;
-     //       dp[r] += dp[l-1]*a[i][2];
-     // }
-     // cout << dp[m];
 }
 
 int32_t main()
