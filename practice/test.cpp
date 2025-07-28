@@ -9,8 +9,9 @@ using i64 = long long;
 //RNG
 
 void solve(){
-      int n = (1 << 19);
-      cout << n;
+      int x = 0;
+      for(int i = 0; i < 5; i++) x += i;
+      cout << x << "\n";
 }
 
 int32_t main()
