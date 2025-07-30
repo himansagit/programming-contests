@@ -39,7 +39,7 @@ void solve(int){
             ids[b[i+1].first] = j;
             cnt[j]++;
       }
-      vector<pair<int,int>> pos(z+1);
+      vector<vector<pair<int,int>>> pos(z+1);
       j = 0;
       rep(i,z+1){
             int x = cnt[i];
@@ -49,14 +49,17 @@ void solve(int){
             }
       }
       rep(i,z+1){
-            sort(pos[i].begin(),pos[i].end(),comp);
+            sort(pos[i].rbegin(),pos[i].rend(),comp);
       }
       int res = 0;
-
-      for( pair<int,int> p: a){
-            int i = ids[p.second];
-
+      vector<vector<int>> grid(n+1, vector<int> (m+1));
+      for( int i = 0; i < z; i++){
+            pair<int,int> rc = pos[ids[a[i].second]].back();
+            pos[ids[a[i].second]].pop_back();
+            grid[rc.first][rc.second] = 1;
+            rep(j,rc.second) res += grid[rc.first][j]; 
       }
+      cout << res << "\n";
 
       
 }

@@ -1,17 +1,14 @@
 #include<bits/stdc++.h>
+//#include<iostream>
 
 using namespace std;
 //DEBUG
 using i64 = long long;
-#define all(x) (x).begin(),(x).end()
-#define rep(i, a, b) for( int i = a; i < (b); ++i)
-
-//RNG
+#define rep(i,b) for( int i = 0; i < (b); ++i)
 
 void solve(){
-      int x = 0;
-      for(int i = 0; i < 5; i++) x += i;
-      cout << x << "\n";
+      vector<int> a = {1,2,3};
+      cout << a[2] ;
 }
 
 int32_t main()
