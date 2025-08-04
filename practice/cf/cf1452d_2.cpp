@@ -1,169 +1,9 @@
-
-extends c
-
-# We want to overwrite everything in parent ft.
-priority 0
-###########################################################################
-#			    Global functions 						  #
-###########################################################################
-
-global !p
-
-def write_docstring_args(arglist, snip):
-	args = str(arglist).split(',')
-
-	if len(args) > 1:
-		c = 0
-		for arg in args:
-			if c == 0:
-				snip.rv += arg
-				c = 1
-			else:
-				snip += '*       : %s' % arg.strip()
-	else:
-		snip.rv = args[0]
-
-
-endglobal
-#<------------^^^^^^^^^^^^^^^^^-_____________________>
-#<----------NO idead what is this--------------------->
-
-#available snips
-snippet SNIPS
-//FOR
-//RNG
-//MINT
-//index_compress
-endsnippet
-
-#index compression
-snippet index_compress
-void compress( vector<int> &a){
-      int n = a.size();
-      vector<int> d = a;
-      sort( d.begin(), d.end() );
-      d.resize( unique( d.begin(), d.end()) - d.begin());
-      for( int i = 0; i < n; i++){
-            a[i] = lower_bound( d.begin(), d.end(), a[i]) - d.begin();
-      }
-}
-endsnippet
-
-#for loop
-snippet FOR
-for( int ${1:i} = ${2:0}; $1 < ${3:n}; $1++){
-	${0}
-}
-endsnippet
-
-#quick loop
-snippet REP
-for( int _i = 0; _i < ${1:n}; _i++){
-	${0}
-}
-endsnippet
-
-#debug header
-snippet DEBUG
-
-#ifdef LOCAL
-#include "debug.cpp"
-#else
-#define debug(...) 42
-#endif
-
-endsnippet
-
-
-#data types start ------------------------>
-snippet VB
-vector<bool> $0
-endsnippet
-
-snippet VI
-vector<int> $0
-endsnippet
-
-snippet PI
-pair<int,int> $0
-endsnippet
-
-snippet VL
-vector<i64> $0
-endsnippet
-
-snippet VVI
-vector<vector<int>> $0
-endsnippet
-
-snippet VVL
-vector<vector<i64>> $0
-endsnippet
-
-snippet VVB
-vector<vector<bool>> $0
-endsnippet
-
-#data types end ------------------------>
-
-#print run time
-snippet TIME
-cerr << "Time : " << 1000 * ((double)clock()) / (double)CLOCKS_PER_SEC << "ms ";
-endsnippet
-
-#random number generator
-snippet RNG
-mt19937_64 RNG(chrono::steady_clock::now().time_since_epoch().count());
-endsnippet
-#template with test cases
-snippet MAINT
 #include<bits/stdc++.h>
 
 using namespace std;
 //DEBUG
 using i64 = long long;
 #define rep(i,b) for( int i = 0; i < (b); ++i)
-//SNIPS
-void solve(){
-	$0
-}
-
-int32_t main()
-{ 
-	ios_base::sync_with_stdio(false);
-	cin.tie(0);
-	int tc; cin >> tc;
-	while(tc--) solve();
-	//TIME
-}
-
-endsnippet
-
-#template without test cases
-snippet MAIN
-#include<bits/stdc++.h>
-
-using namespace std;
-//DEBUG
-using i64 = long long;
-#define rep(i,b) for( int i = 0; i < (b); ++i)
-//SNIPS
-
-void solve(){
-	$0
-}
-
-int32_t main()
-{ 
-	ios_base::sync_with_stdio(false);
-	cin.tie(0);
-	solve();
-	//TIME
-}
-
-endsnippet
-#MOD INT
-snippet MINT
 const int mod = 998244353;
 typedef struct mint{
       int x;
@@ -268,6 +108,23 @@ typedef struct mint{
      }
 } Z;
 
-endsnippet
+void solve(){
+      int n;
+      cin >> n;
+      vector<Z> dp(n+1);
+      dp[1] = 1;
+      for( int i = 2; i <= n; i++){
+            dp[i] =  dp[i-1] + dp[i-2];
+      }
+      Z res = dp[n]/Z(2).pow(n);
+      cout << res ;
+}
 
-# vim:ft=snippets:
+int32_t main()
+{ 
+      ios_base::sync_with_stdio(false);
+      cin.tie(0);
+      solve();
+      cerr << "Time : " << 1000 * ((double)clock()) / (double)CLOCKS_PER_SEC << "ms ";
+}
+
