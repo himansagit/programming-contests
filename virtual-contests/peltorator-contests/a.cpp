@@ -28,14 +28,16 @@ PI MAX(PI a, PI b){
 }
 
 void solve(){
-      int n;
-      cin >> n;
-      vector<int> a(n);
-      rep(i,n) cin >> a[i];
+      int n,t;
+      cin >> t;
+      n = 1;
+      while( n < t) n *= 2;
+      vector<int> a(t);
+      rep(i,t) cin >> a[i];
       vector<pair<int,int>> tree(2*n+1);
 	
       auto build = [&]()->void{
-            rep(i,n){
+            rep(i,t){
                   tree[i + n] = {a[i],i+1};
             }
             for(int i = n-1; i >= 1; i--){
