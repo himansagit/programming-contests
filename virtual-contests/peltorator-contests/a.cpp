@@ -36,7 +36,6 @@ void solve(){
       rep(i,t) cin >> a[i];
       vector<pair<int,int>> tree(2*n+1);
 	
-      auto build = [&]()->void{
             rep(i,t){
                   tree[i + n] = {a[i],i+1};
             }
@@ -46,12 +45,9 @@ void solve(){
                   //}else{
                   //      tree[i] = tree[2*i + 1];
                   //}
-                  tree[i] = MAX( tree[2*i], tree[2*i + 1]); // implicit comparator should work here
+                  tree[i] = MAX( tree[2*i], tree[2*i + 1]); 
             }
-      };
 
-      build();
-      debug(tree);
       auto find = [&](int l,int r)->pair<int,int>{
             l += n-1;
             r += n-1;

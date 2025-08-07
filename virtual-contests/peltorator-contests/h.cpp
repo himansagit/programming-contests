@@ -1,3 +1,4 @@
+// check if this works when n in not power of 2
 #include<bits/stdc++.h>
 
 using namespace std;
@@ -63,9 +64,8 @@ int find(int i, int x){
 void solve(){     
       int t,m;
       cin >> t >> m;
+      n = t;
       vector<int> a(t);
-      n = 1;
-      while( n < t) n*=2;
       memset(tree,0xFFFF,sizeof(tree));
       rep(i,t) cin >> tree[i+n];
       for( int i = n-1; i > 0; i--){

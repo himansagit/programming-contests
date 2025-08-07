@@ -1,3 +1,4 @@
+
 #include<bits/stdc++.h>
 
 using namespace std;
@@ -12,17 +13,21 @@ int32_t main(int argc, char* argv[])
       cin.tie(0);
       
       mt19937_64 RNG( atoi(argv[1]));
-      int n = RNG()%10 + 1;
-      int m = RNG()%10 + 1;
-      cout << n << " " << m << "\n"; 
+      // start code here
+      int n = RNG()%10 +1;
+      n = 1;
+      cout << n << "\n";
       rep(i,n){
-            cout << RNG()%100 + 1 << " ";
+            cout << RNG()%n+1 << " ";
       }
       cout << "\n";
-      while(m--){
-            int i = RNG()%n+1;
-            int x = RNG()%150;
-            cout << 1 << " " << i << " " << x <<"\n";
+      int m = n;
+      cout << m <<"\n";
+      rep(i,m){
+            int l = RNG()%n+1;
+            int w = n-l;
+            int r = n;
+            if( w > 0)  r = l + RNG()%w; 
+            cout << l << " " << r << "\n";
       }
 }
-
