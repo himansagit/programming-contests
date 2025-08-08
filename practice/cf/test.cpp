@@ -1,15 +1,12 @@
-#include<bits/stdc++.h>
-
-using namespace std;
-
-int32_t main()
+#include<iostream>
+int main()
 { 
-      ios_base::sync_with_stdio(false);
-      cin.tie(0);
-      
-      int n; cin >> n;
-     for( int i = 0; i < n; i++){
-           cout << "hello world\n";
-     }
+      int res = 1;
+      int n;
+      scanf("%d",&n);
+      for( int i = 1; i <= n; i++){
+            res = res * i;
+      }
+      printf("%d",res);
 }
 
