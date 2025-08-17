@@ -30,12 +30,16 @@ endglobal
 
 #available snips
 snippet SNIPS
-//FOR
-//RNG
-//MINT
+//yes
+//no
+//in
+//va
+//rng
+//mint
 //index_compress
-//GENERATOR
+//generator
 //PNC
+//sieve
 endsnippet
 
 #long long
@@ -55,22 +59,31 @@ void compress( vector<int> &a){
 }
 endsnippet
 
-#for loop
-snippet FOR
-for( int ${1:i} = ${2:0}; $1 < ${3:n}; $1++){
-	${0}
-}
+snippet yes
+cout << "Yes\n";
 endsnippet
 
-#quick loop
-snippet REP
-for( int _i = 0; _i < ${1:n}; _i++){
-	${0}
-}
+snippet no
+cout << "No\n";
+endsnippet
+
+snippet in
+int n; cin >> n;
+$0
+endsnippet
+
+snippet va
+vector<int> a(n);
+$0
+endsnippet
+
+snippet ai
+rep(i,n) cin >> a[i];
+$0
 endsnippet
 
 #debug header
-snippet DEBUG
+snippet debug
 
 #ifdef LOCAL
 #include "debug.cpp"
@@ -82,47 +95,47 @@ endsnippet
 
 
 #data types start ------------------------>
-snippet VB
+snippet vb
 vector<bool> $0
 endsnippet
 
-snippet VI
+snippet vi
 vector<int> $0
 endsnippet
 
-snippet PI
+snippet pi
 pair<int,int> $0
 endsnippet
 
-snippet VL
+snippet vl
 vector<i64> $0
 endsnippet
 
-snippet VVI
+snippet vvi
 vector<vector<int>> $0
 endsnippet
 
-snippet VVL
+snippet vvl
 vector<vector<i64>> $0
 endsnippet
 
-snippet VVB
+snippet vvb
 vector<vector<bool>> $0
 endsnippet
 
 #data types end ------------------------>
 
 #print run time
-snippet TIME
+snippet time
 cerr << "Time : " << 1000 * ((double)clock()) / (double)CLOCKS_PER_SEC << "ms ";
 endsnippet
 
 #random number generator
-snippet RNG
+snippet rng
 mt19937_64 RNG(chrono::steady_clock::now().time_since_epoch().count());
 endsnippet
 #template with test cases
-snippet MAINT
+snippet solve
 #include<bits/stdc++.h>
 
 using namespace std;
@@ -143,7 +156,7 @@ int32_t main()
 endsnippet
 
 #template without test cases
-snippet MAIN
+snippet main
 #include<bits/stdc++.h>
 
 using namespace std;
@@ -159,8 +172,7 @@ int32_t main()
 
 endsnippet
 #MOD INT
-snippet MINT
-const int mod = 998244353;
+snippet mint
 typedef struct mint{
       int x;
       mint(){
@@ -266,7 +278,7 @@ typedef struct mint{
 
 endsnippet
 
-snippet GENERATOR
+snippet generator
 
 #include<bits/stdc++.h>
 
@@ -336,5 +348,34 @@ class PNC{
 vector<long long> PNC::factorial;
 long long PNC::mod = 1e9+7;$0
 long long PNC::n = 2e5+1;
+endsnippet
+
+snippet sieve
+struct sieve{
+      vector<int> a;
+      int n;
+      sieve(){
+            n = 2e5+10; 
+            a.assign(n,0);
+            fill();
+      }
+      sieve(int _n){
+            n = _n;
+            a.assign(n,0);
+            fill();
+      }
+      void fill(){
+            a[0] = a[1] = -1;
+            for( int i = 2; i < n; i++){
+                  if( a[i] != 0) continue;
+                  for( int j = i; j < n; j += i){
+                       a[j] = i; 
+                  }
+            }
+      }
+      bool isPrime(int x){
+            return a[x] == x;
+      }
+};
 endsnippet
 # vim:ft=snippets:
