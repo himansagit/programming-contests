@@ -1,21 +1,19 @@
 #include<bits/stdc++.h>
 
 using namespace std;
+#define rep(i,b) for( int i = 0; i < (b); ++i)
 
-void fun() {
-	mt19937 mt;
-	constexpr int size = 500 << 20;
-	char s[size];
-	for (int i = 0; i < size; ++i) {
-		s[i] = mt();
-	}
-	for (int i = size - 1; i >= 1; --i) {
-		s[0] ^= s[i];
-	}
-	cout << (int)s[0] << endl;
-}
-int main()
+int32_t main()
 { 
-      cout << "hello \n";
+      ios_base::sync_with_stdio(false);
+      cin.tie(0);
+      string s = "helllo";
+      auto dfs = [&](this auto ,string s)->void{
+            if( s.length() == 0)
+                  return;
+            cout << s[0];
+            dfs(s.substr(1,s.length()-1));
+      };
+      dfs(s);
 }
 

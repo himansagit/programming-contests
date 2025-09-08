@@ -19,20 +19,11 @@ int32_t main()
       vector<i64> a(3);
       rep(i,3) cin >> a[i];
       sort( a.begin(), a.end());
+      i64 n = min(100LL,a[0]);
       i64 ans = 0;
-      ans = 3*(a[0]/3);
-      a[0] -= ans;
-      a[1] -= ans;
-      a[2] -= ans;
-      i64 res = 0;
-      res = max( res, ans + a[1]/3 + a[2]/3);
-      debug(a);
-      if( a[0] > 0 and a[1] > 0 and a[2] > 0){
-            res = max(res, ans + ( a[1] - 1)/3 + (a[2] -1)/3 + 1);
+      rep(i,n+1){
+           ans = max(ans, i + (a[0]-i)/3 + (a[1]-i)/3 + (a[2]-i)/3 );
       }
-      if( a[0] > 1 and a[1] > 1 and a[2] > 1){
-            res = max(res, ans + ( a[1] - 2)/3 + (a[2] -2)/3 + 2);
-      }
-      cout << res << '\n';
+      cout << ans << '\n';
 }
 
