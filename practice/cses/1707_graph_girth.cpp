@@ -23,28 +23,30 @@ int32_t main()
             G[v].push_back(u);
       }
       int ans = n+1;
-      vector<bool> V(n+1);
-      vector<int> parent(n+1);
-      vector<int> depth(n+1);
-      queue<pair<int,int>> q;
-      q.push({1,0});
-      while( !q.empty()){
-            pair<int,int> node = q.front();
-            int u = node.first;
-            int d = node.second;
-            q.pop();
-           if(V[u]){
-                 ans = min( ans, d - depth[u]);
-           }else{
-                 V[u] = true;
-                 depth[u] = d;
+      for( int node = 1; node <= n; node++){
+            queue<pair<int,int>> q;
+            q.push({node,0});
+            vector<int> depth(n+1,n+1);
+            depth[node] = 0;
+            while( !q.empty()){
+                 pair<int,int> x = q.front();
+                  int u = x.first;
+                  int p = x.second;
+                 q.pop();
                  for( int v:G[u]){
-                        
-                       q.push({v,d+1});
+                       if( v == p) continue;
+                       if( depth[v] < n+1){
+                             // avoid parent
+                             ans = min(ans, depth[v] + depth[u] +1);
+                             debug(node,u,v,ans);
+                       }else{
+                             depth[v] = depth[u]+1;
+                             q.push({v,u});
+                       }
                  }
-           }
+            }
       }
-      if( ans == n+1) cout << "-1\n";
-      else cout << ans << '\n';
+      if( ans == n+1) ans = -1;
+      cout << ans << '\n';
 }
 
