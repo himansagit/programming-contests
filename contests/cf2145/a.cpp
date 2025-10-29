@@ -1,9 +1,11 @@
 #include<bits/stdc++.h>
 
 using namespace std;
+#define rep(i,b) for( int i = 0; i < (b); ++i)
 
 void solve(){
-      
+      int n; cin >> n;
+      cout << (3 - n%3)%3 << '\n';
 }
 
 int32_t main()
