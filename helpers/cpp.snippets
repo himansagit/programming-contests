@@ -48,15 +48,11 @@ using i64 = long long;
 endsnippet
 
 snippet fri
-for( int i = 0; i < n; i++){
-	$0
-}
+for( int i = 0; i < n; i++)$0
 endsnippet
 
 snippet frj
-for( int j = 0; j < n; j++){
-	$0
-}
+for( int j = 0; j < n; j++)$0
 endsnippet
 
 #index compression
@@ -427,5 +423,39 @@ snippet fio
 	freopen("$2","w",stdout);
 #endif
 endsnippet
-
+snippet BIT
+template<typename T> struct BIT{
+      vector<T> bit;
+      int n;
+      BIT(int _n){
+            n = _n;
+            bit.assign(n,0);
+      }
+      BIT( vector<int> &a){
+            n = a.size();
+            bit.assign(n,0);
+            for( int i = 0; i < n; i++){
+                  update(i,a[i]);
+            }
+      }
+      void update(int i,T x){
+            while( i < n){
+                  bit[i] += x;
+                  i = i |(i+1);
+            }
+      }
+      T get(int i){
+            T res = 0;
+            assert(i < n);
+            while( i >= 0){
+                 res += bit[i]; 
+                 i = (i&(i+1)) - 1;
+            }
+            return res;
+      }
+      T get(int l, int r){
+            return get(r) - get(l-1);
+      }
+};
+endsnippet
 # vim:ft=snippets:
